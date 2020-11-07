@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import {getStations, getResults} from "../api/index"
+
 export default {
   name: "Subway",
   props: {
@@ -102,7 +104,7 @@ export default {
     };
   },
   created() {
-    this.$axios.get("/api/get").then((res) => {
+    getStations().then((res) => {
       var result = res.data;
       console.log(result);
       result.arrayList.forEach((element) => {
@@ -118,7 +120,7 @@ export default {
         }
       });
     });
-    this.$axios.get("/api/get").then((res) => {
+    getStations().then((res) => {
       var result = res.data;
       result.arrayList.forEach((element) => {
         if (element != null) {
@@ -165,11 +167,7 @@ export default {
       }
       this.reverse = value;
       let flag = this.startStation.lid === this.endStation.lid;
-      let URL = "/api/cal"
-      if(!value && !flag){
-        URL = "/api/dfs";
-      }
-      this.$axios.post(URL, data).then((res) => {
+      getResults(value || flag, data).then((res) => {
         this.activities = [];
         console.log(res);
         var datas = res.data.passStations.arrayList;

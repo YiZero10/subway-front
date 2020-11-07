@@ -5,7 +5,7 @@ module.exports = {
     devServer: {
         // open: process.platform === 'darwin',
         host: '127.0.0.1',
-        port: 8081,
+        port: 5000,
         // open: true, //配置自动启动浏览器
         proxy: {
             '/api': {
